@@ -12,12 +12,14 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import JsAblealert from './JsAblealert';
+import TabMenu from './TabMenu';
 
 export default function BrowserScreen() {
   const [url, setUrl] = useState('https://www.kmooc.kr');
   const [inputUrl, setInputUrl] = useState('https://www.kmooc.kr');
   const [modalVisible, setModalVisible] = useState(false);
   const [jsEnabled, setJsEnabled] = useState(true);
+  const [activeTab, setActiveTab] = useState('번역');
 
   const handleGo = () => {
     let formattedUrl = inputUrl.trim();
@@ -65,7 +67,10 @@ export default function BrowserScreen() {
           )}
         />
       </View>
-
+          <TabMenu 
+      activeTab={activeTab} 
+      onTabPress={(tab) => setActiveTab(tab)} 
+    />
       <JsAblealert
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -73,6 +78,7 @@ export default function BrowserScreen() {
           setJsEnabled(false);
           setModalVisible(false);
         }}
+        
       />
     </SafeAreaView>
   );
